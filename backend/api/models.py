@@ -1,5 +1,5 @@
 from django.db import models
-import uuid 
+
 
 
 
@@ -15,7 +15,7 @@ DISCOUNT_TYPE=(
 )
 # Create your models here.
 class User(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.BigAutoField(primary_key=True, editable=False)
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=254)
     slug = models.SlugField(max_length=250)
@@ -31,7 +31,7 @@ class User(models.Model):
         return f'{self.name} | {self.email} | {self.bio}'
 
 class Cart(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id =  models.BigAutoField(primary_key=True, editable=False)
     created_by = models.ForeignKey("User", on_delete=models.CASCADE)
     status = models.CharField(choices=CART_STATUS, max_length=50,default="ACTIVE")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -45,7 +45,7 @@ class Carts_Item(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Categories(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.BigAutoField(primary_key=True,  editable=False)
     slug = models.SlugField(max_length=250)
     name = models.CharField(max_length=50)
     description = models.TextField()
@@ -60,7 +60,7 @@ class Categories(models.Model):
         return f'{self.name} '
 
 class Product(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.BigAutoField(primary_key=True, editable=False)
     category_id = models.ForeignKey("Categories", on_delete=models.CASCADE)
     title = models.TextField()
     picture = models.URLField( max_length=250)
@@ -78,7 +78,7 @@ class Product(models.Model):
         return f'{self.title} '
 
 class Review(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.BigAutoField(primary_key=True,  editable=False)
     users_id = models.ForeignKey("User" , on_delete=models.CASCADE)
     product_id = models.ForeignKey("Product" , on_delete=models.CASCADE)
     rating = models.IntegerField()
@@ -86,7 +86,7 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Order(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.BigAutoField(primary_key=True,  editable=False)
     users_id = models.ForeignKey("User" , on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
